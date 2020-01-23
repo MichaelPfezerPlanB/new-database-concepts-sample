@@ -4,7 +4,10 @@ const io = require('socket.io')(http);
 const redis = require('redis');
 
 // Create new redis database client -> if you need other connection options, please specify here
-const redisClient = redis.createClient();
+const redisClient = redis.createClient({
+    url: "rediss://default:gai689ypykqx0fjj@dhbw-wwi-ndbk-do-user-883655-0.db.ondigitalocean.com:25061",
+    tls: {},
+});
 
 app.get('/', (req, res) => {
     res.send('It works!');
@@ -14,7 +17,7 @@ io.on('connection', socket => {
     console.log('a user connected');
 
     // After initial connection, send all existing posts to the user
-    redisClient.lrange('wwi-tweety-posts', 0, -1, (err, postJsonStrings) => {
+    redisClient.lrange('11-wwi-tweety-posts', 0, -1, (err, postJsonStrings) => {
         if (err) {
             console.error(err);
             return;
@@ -30,7 +33,7 @@ io.on('connection', socket => {
         console.log(post);
 
         // Save post in redis
-        redisClient.rpush('wwi-tweety-posts', JSON.stringify(post));
+        redisClient.rpush('11-wwi-tweety-posts', JSON.stringify(post));
 
         // Send Post to everyone
         io.emit('post', JSON.stringify(post));

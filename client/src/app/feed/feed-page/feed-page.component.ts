@@ -23,6 +23,10 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   }
 
   addPost(content: string) {
-    this.socket.addPost({content});
+    let id =1;
+    let likes = 0;
+
+    this.socket.addPost({id, content, likes});
   }
+
 }

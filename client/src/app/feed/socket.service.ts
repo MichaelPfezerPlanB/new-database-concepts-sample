@@ -27,6 +27,10 @@ export class SocketService {
     this.socket.emit('post', JSON.stringify(post));
   }
 
+  public likePost(id: number){
+    this.socket.emit('like', id);
+  }
+
   public close(): void {
     this.socket.close();
     this.posts$.complete();

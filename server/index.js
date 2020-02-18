@@ -44,16 +44,16 @@ io.on('connection', socket => {
 
             // Parse all JSON strings, emit to client
             var objects = postJsonStrings.map(string => JSON.parse(string));
-            console.log('Anzahl alter Posts' + objects.length);
+            //console.log('Anzahl alter Posts' + objects.length);
             objects.forEach(element => {
-                console.log('Aktuelle ID: ' + element.id);
+                //console.log('Aktuelle ID: ' + element.id);
                 if (element.id >= maxid) {
                     maxid = element.id;
                 }
             });
             maxid = maxid + 1;
 
-            console.log('MaxID: ' + maxid);
+            console.log('new MaxID: ' + maxid);
 
             post.id = maxid;
 
@@ -82,23 +82,25 @@ io.on('connection', socket => {
             var objects = postJsonStrings.map(string => JSON.parse(string));
             var counter = 0;
             var index = 0;
+            var likedPost;
+            // console.log('Objects vor: ');
+            // console.log(objects);
+
             objects.forEach(element => {
                 if (element.id === id) {
                     console.log('liked content: ' + element.content);
                     index = counter;
-
-                    //increment the likes of the element by 1
-                    element.likes += 1;
-                    element.content = element.content;
-                    element.id = element.id;
-
-                    //console.log(element.likes);
+                    likedPost = element;
                 }
                 counter++;
             });
+            //increment amount of likes by one
+            likedPost.likes +=1;
 
-            //Array neu speichern und Clients laden lassen
-            redisClient.lset('11-wwi-tweety-posts', index, JSON.stringify(objects));
+            //save the liked post
+            redisClient.lset('11-wwi-tweety-posts', index, JSON.stringify(likedPost));
+            
+            //send update to all clients
             io.emit('previous posts', JSON.stringify(objects));
         });
     });

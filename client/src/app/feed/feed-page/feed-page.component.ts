@@ -1,6 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Post} from "../feed.interfaces";
 import {SocketService} from "../socket.service";
+import { EventEmitterService } from '../../event-emitter.service';    
 
 @Component({
   selector: 'app-feed-page',
@@ -11,11 +12,18 @@ import {SocketService} from "../socket.service";
 export class FeedPageComponent implements OnInit, OnDestroy {
   public posts: Post[] = [];
 
-  constructor(private socket: SocketService) {
+  constructor(private socket: SocketService, private eventEmitterService: EventEmitterService) {
   }
 
   ngOnInit(): void {
     this.socket.posts$.subscribe(posts => this.posts = posts);
+
+    if (this.eventEmitterService.subsVar==undefined) {    
+      this.eventEmitterService.subsVar = this.eventEmitterService.    
+      invokeFeedPageComponentFunction.subscribe((id:number) => {    
+        this.likePost(id);    
+      });    
+    }    
   }
 
   ngOnDestroy(): void {
@@ -29,4 +37,8 @@ export class FeedPageComponent implements OnInit, OnDestroy {
     this.socket.addPost({id, content, likes});
   }
 
+  likePost(id: number){
+    console.log(id);
+    this.socket.likePost(id);
+  }
 }

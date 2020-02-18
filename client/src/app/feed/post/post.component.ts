@@ -1,25 +1,23 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Post} from "../feed.interfaces";
-import {SocketService} from "../socket.service";
+import { EventEmitterService } from '../../event-emitter.service';    
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss'],
-  providers: [SocketService]
+  styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
   @Input() public post: Post | null = null;
 
-  constructor(private socket: SocketService) {
+  constructor(private eventEmitterService: EventEmitterService) {
   }
 
   ngOnInit() {
   }
 
-  
-  testLike(id: number){
-    console.log(id);
-    this.socket.likePost(id);
-  }
+  CallFeedPageComponentLikeFunction(id:number){    
+    this.eventEmitterService.onLikeButtonClick(id);    
+  }    
+
 }

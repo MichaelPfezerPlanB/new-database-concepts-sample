@@ -11,6 +11,7 @@ import { EventEmitterService } from '../../event-emitter.service';
 })
 export class FeedPageComponent implements OnInit, OnDestroy {
   public posts: Post[] = [];
+  public liked_posts: number[] =[];
 
   constructor(private socket: SocketService, private eventEmitterService: EventEmitterService) {
   }
@@ -38,7 +39,11 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   }
 
   likePost(id: number){
-    console.log(id);
-    this.socket.likePost(id);
+    if(!this.liked_posts.includes(id)){
+      console.log(id);
+
+      this.socket.likePost(id);
+      this.liked_posts.push(id);
+    }
   }
 }

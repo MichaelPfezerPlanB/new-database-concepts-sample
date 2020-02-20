@@ -109,6 +109,7 @@ io.on('connection', socket => {
     socket.on('getHashtags', name => {
         var posts = [];
 
+        //load all existing posts
         redisClient.lrange('11-wwi-tweety-posts', 0, -1, (err, postJsonStrings) => {
             if (err) {
                 console.error(err);
@@ -120,8 +121,10 @@ io.on('connection', socket => {
             var regexp = /\B\#\w\w+\b/g
 
             objects.forEach(element => {
+                //Check for all posts, if the hashtag is in it
                 result = element.content.match(regexp);
                 if (result) {
+                    //if hashtag is in the content of the post--> add the post to the result
                     posts.push(element);
                 }
             });

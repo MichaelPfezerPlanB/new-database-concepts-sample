@@ -20,26 +20,25 @@ export class SocketService {
 
       // Reverse the posts to have the correct chronological order (new -> old)
       this.posts$.next(posts.reverse());
+
     });
     this.socket.on('Hashtags', (hashtags: string) =>{
+      //hier kommt das Ergebnis vom Server, wenn 'getHashtags' aufgerufen wurde
+
       console.log(hashtags);
 
-
+      //Ergebnis von JSON in Post-Objekte konvertieren
       var posts: Post[] = JSON.parse(hashtags);
+
+      //Alle Ergebnise in Console ausgeben
       posts.forEach(post => {
         console.log(post);
       });
-
-      // hashtags.forEach(element => {
-      //   var post = JSON.parse(element);
-      //   console.log(post);
-
-      //   posts.push(post);
-      // });
     });
   }
 
   public getHashtags(hashtag: string) {
+    //ruft die Methode auf dem Server(index.js) auf
     this.socket.emit('getHashtags', hashtag);
   }
 

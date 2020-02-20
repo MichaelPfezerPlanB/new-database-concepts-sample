@@ -105,6 +105,36 @@ io.on('connection', socket => {
         });
     });
 
+    //search for specific hashtag in all posts and return the posts it is included
+    socket.on('getHashtags', name => {
+        var posts = [];
+
+        redisClient.lrange('11-wwi-tweety-posts', 0, -1, (err, postJsonStrings) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            // Parse all JSON strings
+            var objects = postJsonStrings.map(string => JSON.parse(string));
+            var regexp = /\B\#\w\w+\b/g
+
+            objects.forEach(element => {
+                result = element.content.match(regexp);
+                if (result) {
+                    posts.push(element);
+                }
+            });
+
+            //Send posts with hashtags to the client as JSON
+            socket.emit('Hashtags', JSON.stringify(posts));
+        });
+
+
+            
+        
+    });
+
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });

@@ -14,6 +14,11 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
+    var text = document.querySelectorAll(".card-body")
+    
+    text.forEach(element => {
+      element.innerHTML = element.innerHTML.replace(/#(\w+)/g, '<a href="/hashtag?hash=$1">#$1</a>');
+    });
   }
 
   CallFeedPageComponentLikeFunction(id:number){    

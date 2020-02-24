@@ -7,16 +7,4 @@
     <!--<button class="btn btn-primary" type="submit">Like Test</button>-->
     <img (click)="CallFeedPageComponentLikeFunction(post.id)" src="../../../assets/daumen-hoch.svg" class="like">
 </form>
-<script>
-  
-  hashtag();
-  function hashtag(){
-      var text = document.getElementsByClassName("card-body").innerHTML;
-  var repl = text.replace(/#(\w+)/g, '<a href="/hashtag/$1">#$1</a>');
-  console.log(repl);
-  document.getElementsByClassName("card-body").innerHTML = repl;
-}
-
-
-  </script>
 </div>

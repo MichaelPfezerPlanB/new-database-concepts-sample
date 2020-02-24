@@ -3,6 +3,8 @@ import {Post} from "../feed.interfaces";
 import {SocketService} from "../socket.service";
 import { EventEmitterService } from '../../event-emitter.service';    
 
+
+
 @Component({
   selector: 'app-feed-page',
   templateUrl: './feed-page.component.html',
@@ -39,8 +41,6 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   addPost(content: string) {
     let id =1;
     let likes = 0;
-
-    this.socket.addPost({id, content, likes});
   }
 
   likePost(id: number){
@@ -49,6 +49,9 @@ export class FeedPageComponent implements OnInit, OnDestroy {
 
       this.socket.likePost(id);
       this.liked_posts.push(id);
+      
+      
     }
   }
+  
 }

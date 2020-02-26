@@ -118,11 +118,13 @@ io.on('connection', socket => {
 
             // Parse all JSON strings
             var objects = postJsonStrings.map(string => JSON.parse(string));
-            var regexp = /\B\#\w\w+\b/g
+
+            // build the regex
+            var expr = "\#"+name;
 
             objects.forEach(element => {
                 //Check for all posts, if the hashtag is in it
-                result = element.content.match(regexp);
+                result = (new RegExp(expr)).test(element.content);
                 if (result) {
                     //if hashtag is in the content of the post--> add the post to the result
                     posts.push(element);

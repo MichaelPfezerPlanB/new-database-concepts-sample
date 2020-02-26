@@ -35,7 +35,7 @@ export class SocketService {
       console.log(this.hashtags$);
       
       //Ergebnis von JSON in Post-Objekte konvertieren
-      this.hashtags$.next(hashtags);
+      this.hashtags$.next(hashtags.reverse());
 
       //Alle Ergebnise in Console ausgeben
       // this.hashtags$.forEach(post => {

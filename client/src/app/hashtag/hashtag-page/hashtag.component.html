@@ -2,8 +2,8 @@
 
 <!-- Placeholder, if no posts are available -->
 <div *ngIf="posts?.length === 0" class="container">
-    <h1 class="mt-5">No Posts :/</h1>
-    <p class="lead">There are no posts, yet! Maybe you should enter your thoughts here...</p>
+    <h1 class="mt-5">No Posts with that hashtag :/</h1>
+    <p class="lead">There are no posts with that Hashtag, yet!</p>
   </div>
 
 <app-post *ngFor="let post of posts" [post]="post"></app-post>

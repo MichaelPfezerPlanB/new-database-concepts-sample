@@ -17,8 +17,7 @@ import { HashtagModule } from './hashtag/hashtag.module';
     HashtagModule
   ],
   providers: [EventEmitterService],
-  bootstrap: [AppComponent],
-  schemas: [HashtagComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

@@ -31,11 +31,6 @@ export class FeedPageComponent implements OnInit, OnDestroy {
     this.socket.close();
   }
 
-  getHashtagsTest(){
-    //Methoden aufruf in socket.service.ts
-    this.socket.getHashtags("test");
-  }
-
   addPost(content: string) {
     let id =1;
     let likes = 0;

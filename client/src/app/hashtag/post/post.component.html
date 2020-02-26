@@ -1,0 +1,11 @@
+<div *ngIf="post != null" class="card post">
+  <div class="card-body">
+    {{post.content}}
+    {{post.likes}}
+  </div>
+  <form (submit)="$event.preventDefault(); testLike(post.id)">
+    <!--<button class="btn btn-primary" type="submit">Like Test</button>-->
+    <img (click)="CallFeedPageComponentLikeFunction(post.id)" src="../../../assets/daumen-hoch.svg" class="like">
+</form>
+
+</div>

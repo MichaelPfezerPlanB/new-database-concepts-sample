@@ -44,13 +44,6 @@ export class HashtagComponent implements OnInit, OnDestroy {
     this.socket.close();
   }
 
-  // addPost(content: string) {
-  //   let id =1;
-  //   let likes = 0;
-
-  //   this.socket.addPost({id, content, likes});
-  // }
-
   likePost(id: number){
     if(!this.liked_posts.includes(id)){
       console.log(id);

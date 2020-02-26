@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Post} from "../feed.interfaces";
 import {SocketService} from "../socket.service";
 import { EventEmitterService } from '../../event-emitter.service';    
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-feed-page',

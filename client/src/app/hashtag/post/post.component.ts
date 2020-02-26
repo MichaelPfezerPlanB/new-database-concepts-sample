@@ -14,6 +14,10 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setLinks();
+  }
+
+  public setLinks(){
     var text = document.querySelectorAll(".card-body")
     
     text.forEach(element => {

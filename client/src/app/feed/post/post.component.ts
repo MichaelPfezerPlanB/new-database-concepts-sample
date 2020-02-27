@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
 import {Post} from "../feed.interfaces";
 import { EventEmitterService } from '../../event-emitter.service';    
 
@@ -7,13 +7,17 @@ import { EventEmitterService } from '../../event-emitter.service';
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, AfterViewInit {
   @Input() public post: Post | null = null;
 
   constructor(private eventEmitterService: EventEmitterService) {
   }
 
   ngOnInit() {
+    this.setLinks();
+  }
+
+  ngAfterViewInit(){
     this.setLinks();
   }
 
@@ -28,5 +32,4 @@ export class PostComponent implements OnInit {
   CallFeedPageComponentLikeFunction(id:number){    
     this.eventEmitterService.onLikeButtonClick(id);    
   }    
-
 }

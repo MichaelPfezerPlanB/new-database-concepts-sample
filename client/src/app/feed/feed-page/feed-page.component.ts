@@ -1,7 +1,8 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Post} from "../feed.interfaces";
 import {SocketService} from "../socket.service";
 import { EventEmitterService } from '../../event-emitter.service';    
+import { PostComponent } from '../post/post.component';
 
 
 
@@ -31,11 +32,6 @@ export class FeedPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.socket.close();
-  }
-
-  getHashtagsTest(){
-    //Methoden aufruf in socket.service.ts
-    this.socket.getHashtags("test");
   }
 
   addPost(content: string) {

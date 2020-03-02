@@ -7,13 +7,14 @@
 
   <button class="btn btn-primary" type="submit">Submit</button>
 </form>
+
 <!-- getHashtagsTest() ist in der feed-page.component.ts-->
 <button (click)="getHashtagsTest()" class= "btn btn-primary">getHashtagsTest</button>
 
 <hr>
 
 <!-- Placeholder, if no posts are available -->
-<div *ngIf="posts?.length === 0" class="container">
+<div *ngIf="hashtags?.length === 0" class="container">
   <h1 class="mt-5">No Posts :/</h1>
   <p class="lead">There are no posts, yet! Maybe you should enter your thoughts here...</p>
 </div>

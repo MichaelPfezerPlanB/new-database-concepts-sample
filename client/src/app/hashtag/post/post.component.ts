@@ -1,13 +1,6 @@
 import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
-import {Post} from "../feed.interfaces";
-import { EventEmitterService } from '../../event-emitter.service';
-import { StringDecoder } from 'string_decoder';
-import { utf8Encode } from '@angular/compiler/src/util';
-import { encode, decode } from 'punycode';
-import { HtmlParser, getHtmlTagDefinition } from '@angular/compiler';
-import { ɵescapeHtml } from '@angular/platform-browser';
-import { htmlAstToRender3Ast } from '@angular/compiler/src/render3/r3_template_transform';
-import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
+import {Post} from "../hashtag.interfaces";
+import { EventEmitterService } from '../../event-emitter.service';    
 
 @Component({
   selector: 'app-post',
@@ -30,15 +23,14 @@ export class PostComponent implements OnInit, AfterViewInit {
 
   public setLinks(){
     var text = document.querySelectorAll(".card-body")
-
+    
     text.forEach(element => {
       element.innerHTML = element.innerHTML.replace(/#(\w+)/g, '<a href="/hashtag?hash=$1">#$1</a>');
     });
   }
 
+  CallFeedPageComponentLikeFunction(id:number){    
+    this.eventEmitterService.onLikeButtonClick(id);    
+  }    
 
-}
-  CallFeedPageComponentLikeFunction(id:number){
-    this.eventEmitterService.onLikeButtonClick(id);
-  }
 }

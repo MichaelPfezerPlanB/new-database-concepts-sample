@@ -1,9 +1,8 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild, ɵSWITCH_CHANGE_DETECTOR_REF_FACTORY__POST_R3__, ReflectiveKey} from '@angular/core';
 import {Post} from "../feed.interfaces";
 import {SocketService} from "../socket.service";
 import { EventEmitterService } from '../../event-emitter.service';    
 import { PostComponent } from '../post/post.component';
-
 
 
 @Component({
@@ -14,7 +13,9 @@ import { PostComponent } from '../post/post.component';
 })
 export class FeedPageComponent implements OnInit, OnDestroy {
   public posts: Post[] = [];
+  public temp_posts: Post[] = [];
   public liked_posts: number[] =[];
+
 
   constructor(private socket: SocketService, private eventEmitterService: EventEmitterService) {
   }
@@ -36,18 +37,19 @@ export class FeedPageComponent implements OnInit, OnDestroy {
 
   addPost(content: string) {
     let id =1;
-    let likes = 0;
+    let likes = null;
+    let status = false;
+    this.socket.addPost({id, content, likes, status});
   }
 
   likePost(id: number){
     if(!this.liked_posts.includes(id)){
-      console.log(id);
 
+      this.posts[id].status = false;
       this.socket.likePost(id);
       this.liked_posts.push(id);
-      
-      
+      localStorage.setItem("heart"+id, "false");
+      console.log("heart"+id);
     }
   }
-  
 }

@@ -50,6 +50,7 @@ export class HashtagComponent implements OnInit, OnDestroy {
 
       this.socket.likePost(id);
       this.liked_posts.push(id);
+      localStorage.setItem("heart"+id, "false");
     }
   }
 }

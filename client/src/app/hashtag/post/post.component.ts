@@ -10,15 +10,34 @@ import { EventEmitterService } from '../../event-emitter.service';
 export class PostComponent implements OnInit, AfterViewInit {
   @Input() public post: Post | null = null;
 
+  public $Post: Post;
   constructor(private eventEmitterService: EventEmitterService) {
+    this.$Post = {
+      id: null,
+      content: "0",
+      likes: null,
+      status: true,
+    }
   }
 
   ngOnInit() {
     this.setLinks();
+    if (localStorage.getItem("heart"+this.post.id) == "false") {
+      this.$Post.status = false;
+    }
+    else{
+      
+    }
   }
 
   ngAfterViewInit(){
     this.setLinks();
+    if (localStorage.getItem("heart"+this.post.id) == "false") {
+      this.$Post.status = false;
+    }
+    else{
+      
+    }
   }
 
   public setLinks(){
@@ -30,7 +49,11 @@ export class PostComponent implements OnInit, AfterViewInit {
   }
 
   CallFeedPageComponentLikeFunction(id:number){    
-    this.eventEmitterService.onLikeButtonClick(id);    
+    this.eventEmitterService.onLikeButtonClick(id);
+    this.$Post.status = false;    
   }    
+  public changeCheck($event: any): void{
+    this.$Post.status = false;
+  }
 
 }
